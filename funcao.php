@@ -83,4 +83,46 @@ function editarFuncionario($nomeArquivo, $funcionarioEditado) {
 
 function realizarLogin($usuario, $senha, $dados) {
     
+    foreach ($dados as $dado) {
+        
+        if ( $dado->usuario == $usuario && $dado->senha == $senha ) {
+            
+            //VARIÁVEIS DE SESSÃO:
+            $_SESSION["usuario"] = $dado->usuario;
+            $_SESSION["id"] = session_id();
+            $_SESSION["data_hora"] = date('d/m/Y - h:i:s');
+
+            header('location: area-restrita.php');
+            exit;
+
+        }
+        
+    }
+
+    header('location: index.php');
+
+}
+
+function verificarLogin() {
+
+    if($_SESSION['id'] != session_id() || (empty($_SESSION['id']))) {
+
+        header('location: index.php');
+
+    }
+
+}
+
+// função de finalização de login
+// efetua a ação de saída do usuário destruindo a sessão
+
+function finalizarLogin() {
+
+    // limpa todas as variáveis de sessãos
+    session_unset();
+    // destroi a sessão ativa
+    session_destroy();
+
+    header('location: index.php');
+
 }

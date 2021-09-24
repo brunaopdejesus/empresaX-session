@@ -1,2 +1,0 @@
-# empresaX
-# empresaX-session
